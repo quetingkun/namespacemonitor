@@ -1,0 +1,92 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.4
+  name: namespacemonitors.monitoring.resource.com
+spec:
+  group: monitoring.resource.com
+  names:
+    kind: NamespaceMonitor
+    listKind: NamespaceMonitorList
+    plural: namespacemonitors
+    singular: namespacemonitor
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: NamespaceMonitor is the Schema for the namespacemonitors API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NamespaceMonitorSpec defines the desired state of NamespaceMonitor.
+            properties:
+              namespace:
+                description: |-
+                  Foo is an example field of NamespaceMonitor. Edit namespacemonitor_types.go to remove/update
+                  Foo string `json:"foo,omitempty"`
+                type: string
+              updateInterval:
+                type: string
+            required:
+            - namespace
+            - updateInterval
+            type: object
+          status:
+            description: NamespaceMonitorStatus defines the observed state of NamespaceMonitor.
+            properties:
+              lastUpdated:
+                description: |-
+                  INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
+                  Important: Run "make" to regenerate code after modifying this file
+                format: date-time
+                type: string
+              podMetrics:
+                items:
+                  properties:
+                    containerMetrics:
+                      items:
+                        properties:
+                          containerName:
+                            type: string
+                          cpuUsage:
+                            type: string
+                          memoryUsage:
+                            type: string
+                        required:
+                        - containerName
+                        - cpuUsage
+                        - memoryUsage
+                        type: object
+                      type: array
+                    podName:
+                      type: string
+                  required:
+                  - containerMetrics
+                  - podName
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,10 @@
+apiVersion: monitoring.resource.com/v1
+kind: NamespaceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: namespacemonitor
+    app.kubernetes.io/managed-by: kustomize
+  name: namespacemonitor-sample
+spec:
+  namespace: namespace-sample
+  updateInterval: 60s

@@ -1,0 +1,23 @@
+# permissions for end users to view namespacemonitors.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: namespacemonitor
+    app.kubernetes.io/managed-by: kustomize
+  name: namespacemonitor-viewer-role
+rules:
+- apiGroups:
+  - monitoring.resource.com
+  resources:
+  - namespacemonitors
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - monitoring.resource.com
+  resources:
+  - namespacemonitors/status
+  verbs:
+  - get

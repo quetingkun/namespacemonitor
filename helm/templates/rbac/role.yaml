@@ -1,0 +1,40 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: namespacemonitor-manager-role
+rules:
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - monitoring.resource.com
+  resources:
+  - namespacemonitors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - monitoring.resource.com
+  resources:
+  - namespacemonitors/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - monitoring.resource.com
+  resources:
+  - namespacemonitors/status
+  verbs:
+  - get
+  - patch
+  - update
